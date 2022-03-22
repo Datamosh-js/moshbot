@@ -1,0 +1,35 @@
+{
+  "name": "moshbot",
+  "version": "0.0.0",
+  "description": "Discord bot tha runs Datamosh",
+  "main": "index.js",
+  "scripts": {
+    "lint": "prettier-standard --verbose --fix",
+    "pretest": "npm run lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Datamosh-js/moshbot.git"
+  },
+  "keywords": [
+    "datamosh",
+    "discord"
+  ],
+  "author": "Michael Sterpka <michaelsterpka@gmail.com> (https://github.com/mster)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Datamosh-js/moshbot/issues"
+  },
+  "homepage": "https://github.com/Datamosh-js/moshbot#readme",
+  "dependencies": {
+    "@discordjs/rest": "^0.3.0",
+    "axios": "^0.26.1",
+    "datamosh": "^2.1.2",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.6.0"
+  },
+  "devDependencies": {
+    "prettier-standard": "^16.4.1"
+  }
+}
