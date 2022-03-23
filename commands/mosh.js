@@ -1,12 +1,17 @@
 'use strict'
 
 const datamosh = require('datamosh')
-const axios = require('axios')
+const domcolor = require('domcolor')
+
+const { downloadImgBuffer } = require('../utils/webtx')
+
+const MoshInfoEmbded = require('../models/MoshInfoEmbded')
+const { MessageAttachment } = require('discord.js')
 
 const { replyWithText } = require('../utils/reply')
 
 module.exports = async (...[, message, options]) => {
-  console.log('Moshing', options)
+  console.log(`Mosh request from user: ${message.author.id}`, options)
 
   if (!message?.attachments || message.attachments.size === 0) {
     replyWithText(message, 'You need to upload an image!')
@@ -14,11 +19,20 @@ module.exports = async (...[, message, options]) => {
   }
 
   // only supporting one image for now
-  const imgURL = message.attachments.values().next()?.value?.proxyURL
+  const attachmentData = message.attachments.first()
+  const imgURL = attachmentData.url
   if (!imgURL) throw new Error('Error getting imageURL')
 
-  const res = await axios.get(imgURL)
+  const imgBuff = await downloadImgBuffer(imgURL)
+  const moshedImgBuffer = await datamosh(imgBuff, options)
+  const { rgb: color } = await domcolor(moshedImgBuffer)
 
-  const imgBuffer = Buffer.from(res.data)
-  const moshedImgBuffer = await datamosh(imgBuffer, options)
+  const attachment = new MessageAttachment(moshedImgBuffer)
+
+  message.reply({
+    embeds: [new MoshInfoEmbded({ modes: options, color })],
+    files: [attachment]
+  })
 }
+
+module.exports.alias = 'm'

@@ -8,3 +8,5 @@ module.exports = async (...[, message]) => {
   const supportedText = `Supported mosh modes: ${modes}`
   replyWithText(message, supportedText)
 }
+
+module.exports.alias = 'o'

@@ -12,22 +12,25 @@ module.exports = async (client, message) => {
     const [command, ...options] = content.split(' ')
     const name = command?.replace(COMMAND_PREFIX, '')
 
-    if (Object.keys(commands).includes(name)) {
-      const fn = commands[name]
+    const supportedCommands = Object.keys(commands).map(cmd => ({
+      alias: commands[cmd].alias,
+      origin: cmd
+    }))
 
-      try {
-        if (fn.constructor.name === 'AsyncFunction')
-          return await fn(client, message, options)
-        if (fn.constructor.name === 'Function')
-          return fn(client, message, options)
-      } catch (error) {
-        // handle this via messages
-        throw error
+    let fn
+    supportedCommands.forEach(supportedCommand => {
+      if (supportedCommand.alias === name || supportedCommand.origin === name) {
+        fn = commands[supportedCommand.origin]
       }
+    })
 
-      throw new Error(
-        'Unsupported command -- command must be of type Function or AsyncFunction'
-      )
+    if (!fn) return
+
+    try {
+      fn(client, message, options)
+    } catch (error) {
+      // handle this via messages
+      throw error
     }
   }
 }
