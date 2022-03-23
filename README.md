@@ -22,6 +22,17 @@ Example:
 !mosh fatcat walter fatcat
 ```
 
+### `!modes`
+**Alias:** `!o`
+
+Replies with the currently supported datamosh modes.
+
+Example:
+```
+!o
+> Supported mosh modes: blurbobb, schifty, veneneux, vana, fatcat, vaporwave, walter, castles
+```
+
 ### `!help <modes>`
 **Alias:** `!h`
 
