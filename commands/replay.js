@@ -7,7 +7,7 @@ const { replyWithText } = require('../utils/reply')
 const { cacheGet } = require('../utils/cache')
 
 module.exports = async (...[, message]) => {
-  console.log(`Replay request from user: ${message.author.id}`, options)
+  console.log(`Replay request from user: ${message.author.id}`)
 
   try {
     const { buffer, modes } = cacheGet(message.author.id) || {}
