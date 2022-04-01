@@ -28,14 +28,14 @@ module.exports = async (...[, message, options]) => {
     const { rgb: color } = await domcolor(moshedImgBuffer)
 
     const attachment = new MessageAttachment(moshedImgBuffer)
-  
+
     message.reply({
       embeds: [new MoshInfoEmbded({ modes: options, color })],
       files: [attachment]
     })
   } catch (error) {
     console.error(error)
-    replyWithText(error.message)
+    replyWithText(message, error.message)
   }
 }
 

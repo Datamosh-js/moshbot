@@ -13,42 +13,50 @@ A Discord bot that runs [Datamosh](https://github.com/Datamosh-js/datamosh)
 All commands use the `!` prefix.
 
 ### `!mosh <modes>`
+
 **Alias:** `!m`
 
 Mosh an image attachment using the provided mode(s).
 
 Example:
+
 ```
 !mosh fatcat walter fatcat
 ```
 
 ### `!modes`
+
 **Alias:** `!o`
 
 Replies with the currently supported datamosh modes.
 
 Example:
+
 ```
 !o
 > Supported mosh modes: blurbobb, schifty, veneneux, vana, fatcat, vaporwave, walter, castles
 ```
 
 ### `!help <modes>`
+
 **Alias:** `!h`
 
 Print help text
 
 Example:
+
 ```
 !help
 ```
 
 ### `!replay <modes>`
+
 **Alias:** `!r`
 
 Replay the your most recent mosh. Useful when using random based modes.
 
 Example:
+
 ```
 !replay
 ```
@@ -66,5 +74,3 @@ Join the official Datamosh discord -- everyone is welcome!
 This is a great place to start if you're looking to work on your first collaborative project.
 
 https://discord.gg/D36zxPUM
-
-
