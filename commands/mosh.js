@@ -5,6 +5,7 @@ const domcolor = require('domcolor')
 
 const { downloadImgBuffer } = require('../utils/webtx')
 const { replyWithText } = require('../utils/reply')
+const { thumbsUp, thumbsDown } = require('../utils/reaction')
 const { cacheSet } = require('../utils/cache')
 
 const MoshInfoEmbded = require('../models/MoshInfoEmbded')
@@ -25,6 +26,7 @@ module.exports = async (...[, message, options]) => {
 
   try {
     const imgBuff = await downloadImgBuffer(imgURL)
+    thumbsUp(message)
 
     // set in cache for use with replay command
     cacheSet(message.author.id, { buffer: imgBuff, modes: options })
@@ -39,6 +41,7 @@ module.exports = async (...[, message, options]) => {
       files: [attachment]
     })
   } catch (error) {
+    thumbsDown(message)
     console.error(error)
     replyWithText(message, error.message)
   }
