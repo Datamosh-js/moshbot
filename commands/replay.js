@@ -3,6 +3,7 @@
 const { thumbsDown, thumbsUp } = require('../utils/reaction')
 const { replyWithText } = require('../utils/reply')
 const { cacheGet } = require('../utils/cache')
+const { performMosh, performEmbedReply } = require('../preformers/mosh')
 
 module.exports = async (...[, message]) => {
   console.log(`Replay request from user: ${message.author.id}`)

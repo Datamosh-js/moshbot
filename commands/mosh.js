@@ -4,7 +4,7 @@ const { downloadImgBuffer } = require('../utils/webtx')
 const { replyWithText } = require('../utils/reply')
 const { thumbsUp, thumbsDown } = require('../utils/reaction')
 const { cacheSet } = require('../utils/cache')
-const { performEmbedReply } = require('../preformers/mosh')
+const { performEmbedReply, performMosh } = require('../preformers/mosh')
 
 module.exports = async (...[, message, options]) => {
   console.log(`Mosh request from user: ${message.author.id}`, options)
