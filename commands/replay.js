@@ -1,13 +1,8 @@
 'use strict'
 
-const datamosh = require('datamosh')
-const domcolor = require('domcolor')
-
+const { thumbsDown, thumbsUp } = require('../utils/reaction')
 const { replyWithText } = require('../utils/reply')
 const { cacheGet } = require('../utils/cache')
-
-const MoshInfoEmbded = require('../models/MoshInfoEmbded')
-const { MessageAttachment } = require('discord.js')
 
 module.exports = async (...[, message]) => {
   console.log(`Replay request from user: ${message.author.id}`)
@@ -18,16 +13,13 @@ module.exports = async (...[, message]) => {
     if (!buffer || !modes)
       throw new Error('Cannot replay; you have no mosh history.')
 
-    const moshedImgBuffer = await datamosh(buffer, modes)
-    const { rgb: color } = await domcolor(moshedImgBuffer)
+    thumbsUp(message)
 
-    const attachment = new MessageAttachment(moshedImgBuffer)
+    const { moshBuff, color } = await performMosh(buffer, modes)
 
-    message.reply({
-      embeds: [new MoshInfoEmbded({ modes , color })],
-      files: [attachment]
-    })
+    performEmbedReply(message, moshBuff, color, modes)
   } catch (error) {
+    thumbsDown(message)
     console.error(error)
     replyWithText(message, error.message)
   }

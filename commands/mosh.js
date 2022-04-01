@@ -1,15 +1,10 @@
 'use strict'
 
-const datamosh = require('datamosh')
-const domcolor = require('domcolor')
-
 const { downloadImgBuffer } = require('../utils/webtx')
 const { replyWithText } = require('../utils/reply')
 const { thumbsUp, thumbsDown } = require('../utils/reaction')
 const { cacheSet } = require('../utils/cache')
-
-const MoshInfoEmbded = require('../models/MoshInfoEmbded')
-const { MessageAttachment } = require('discord.js')
+const { performEmbedReply } = require('../preformers/mosh')
 
 module.exports = async (...[, message, options]) => {
   console.log(`Mosh request from user: ${message.author.id}`, options)
@@ -31,15 +26,9 @@ module.exports = async (...[, message, options]) => {
     // set in cache for use with replay command
     cacheSet(message.author.id, { buffer: imgBuff, modes: options })
 
-    const moshedImgBuffer = await datamosh(imgBuff, options)
-    const { rgb: color } = await domcolor(moshedImgBuffer)
+    const { moshBuff, color } = await performMosh(imgBuff, options)
 
-    const attachment = new MessageAttachment(moshedImgBuffer)
-
-    message.reply({
-      embeds: [new MoshInfoEmbded({ modes: options, color })],
-      files: [attachment]
-    })
+    performEmbedReply(message, moshBuff, color, options)
   } catch (error) {
     thumbsDown(message)
     console.error(error)
