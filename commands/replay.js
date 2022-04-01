@@ -21,7 +21,7 @@ module.exports = async (...[, message]) => {
     const attachment = new MessageAttachment(moshedImgBuffer)
 
     message.reply({
-      embeds: [new MoshInfoEmbded({ modes: options, color })],
+      embeds: [new MoshInfoEmbded({ modes , color })],
       files: [attachment]
     })
   } catch (error) {
