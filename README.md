@@ -37,7 +37,7 @@ Example:
 > Supported mosh modes: blurbobb, schifty, veneneux, vana, fatcat, vaporwave, walter, castles
 ```
 
-### `!help <modes>`
+### `!help`
 
 **Alias:** `!h`
 
