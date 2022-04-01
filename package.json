@@ -28,7 +28,8 @@
     "datamosh": "^2.1.2",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
-    "domcolor": "^0.0.2"
+    "domcolor": "^0.0.2",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "prettier-standard": "^16.4.1"

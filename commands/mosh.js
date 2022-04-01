@@ -5,6 +5,7 @@ const domcolor = require('domcolor')
 
 const { downloadImgBuffer } = require('../utils/webtx')
 const { replyWithText } = require('../utils/reply')
+const { cacheSet } = require('../utils/cache')
 
 const MoshInfoEmbded = require('../models/MoshInfoEmbded')
 const { MessageAttachment } = require('discord.js')
@@ -24,6 +25,10 @@ module.exports = async (...[, message, options]) => {
 
   try {
     const imgBuff = await downloadImgBuffer(imgURL)
+
+    // set in cache for use with replay command
+    cacheSet(message.author.id, { buffer: imgBuff, modes: options })
+
     const moshedImgBuffer = await datamosh(imgBuff, options)
     const { rgb: color } = await domcolor(moshedImgBuffer)
 
