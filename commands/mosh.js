@@ -4,11 +4,10 @@ const datamosh = require('datamosh')
 const domcolor = require('domcolor')
 
 const { downloadImgBuffer } = require('../utils/webtx')
+const { replyWithText } = require('../utils/reply')
 
 const MoshInfoEmbded = require('../models/MoshInfoEmbded')
 const { MessageAttachment } = require('discord.js')
-
-const { replyWithText } = require('../utils/reply')
 
 module.exports = async (...[, message, options]) => {
   console.log(`Mosh request from user: ${message.author.id}`, options)
@@ -23,16 +22,21 @@ module.exports = async (...[, message, options]) => {
   const imgURL = attachmentData.url
   if (!imgURL) throw new Error('Error getting imageURL')
 
-  const imgBuff = await downloadImgBuffer(imgURL)
-  const moshedImgBuffer = await datamosh(imgBuff, options)
-  const { rgb: color } = await domcolor(moshedImgBuffer)
+  try {
+    const imgBuff = await downloadImgBuffer(imgURL)
+    const moshedImgBuffer = await datamosh(imgBuff, options)
+    const { rgb: color } = await domcolor(moshedImgBuffer)
 
-  const attachment = new MessageAttachment(moshedImgBuffer)
-
-  message.reply({
-    embeds: [new MoshInfoEmbded({ modes: options, color })],
-    files: [attachment]
-  })
+    const attachment = new MessageAttachment(moshedImgBuffer)
+  
+    message.reply({
+      embeds: [new MoshInfoEmbded({ modes: options, color })],
+      files: [attachment]
+    })
+  } catch (error) {
+    console.error(error)
+    replyWithText(error.message)
+  }
 }
 
 module.exports.alias = 'm'
