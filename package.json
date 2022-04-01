@@ -4,6 +4,7 @@
   "description": "Discord bot tha runs Datamosh",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "lint": "prettier-standard --verbose --fix",
     "pretest": "npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1"
