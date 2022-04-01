@@ -6,6 +6,9 @@ const domcolor = require('domcolor')
 const { replyWithText } = require('../utils/reply')
 const { cacheGet } = require('../utils/cache')
 
+const MoshInfoEmbded = require('../models/MoshInfoEmbded')
+const { MessageAttachment } = require('discord.js')
+
 module.exports = async (...[, message]) => {
   console.log(`Replay request from user: ${message.author.id}`)
 
