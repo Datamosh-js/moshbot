@@ -49,16 +49,20 @@ Example:
 !help
 ```
 
-### `!replay <modes>`
+### `!replay [modes]`
 
 **Alias:** `!r`
 
 Replay the your most recent mosh. Useful when using random based modes.
 
+Optionally, you may pass modes to override the past modes. Saves you a couple seconds of uploading the same source image.
+
 Example:
 
-```
+```sh
 !replay
+# or
+!replay fatcat
 ```
 
 # Invite Moshbot
