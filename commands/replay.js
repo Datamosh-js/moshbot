@@ -5,11 +5,15 @@ const { replyWithText } = require('../utils/reply')
 const { cacheGet } = require('../utils/cache')
 const { performMosh, performEmbedReply } = require('../preformers/mosh')
 
-module.exports = async (...[, message]) => {
+module.exports = async (...[, message, options]) => {
   console.log(`Replay request from user: ${message.author.id}`)
 
   try {
-    const { buffer, modes } = cacheGet(message.author.id) || {}
+    let { buffer, modes } = cacheGet(message.author.id) || {}
+
+    if (options && options.length > 0) {
+      modes = options
+    }
 
     if (!buffer || !modes)
       throw new Error('Cannot replay; you have no mosh history.')
